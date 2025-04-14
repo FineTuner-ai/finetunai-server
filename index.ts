@@ -1,17 +1,19 @@
-import  express  from "express";
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import contactRoutes from './src/routes/contact.routes';
 
-const  app  = express()
+dotenv.config();
 
- app.get("/", (req, res)=>{
-    res.send("Hello world")
-    console.log("hello")
+const app = express();
+const PORT = process.env.PORT || 5000;
 
- })
+app.use(cors());
+app.use(express.json());
 
- const PORT  = 5000
+// ✅ Mount the router here
+app.use('/api/contact', contactRoutes);
 
- app.listen("PORT", () =>{
-    console.log(
-        `App running on PORT: ${PORT}`
-    )
- } )
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+});
